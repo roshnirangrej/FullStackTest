@@ -1,13 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Navbar from "./Navbar";
-//import North from '../images/NorthF.jpg'; 
-//import South from '../images/South.jpg';
 import arrow from '../images/arrow.webp';
 import East from '../images/East.jpg';
 import obstacleImage from '../images/obstacle.jpg';
-
-
-//const forkliftImg = [North,South,West,East];
 
 export default function Track() {
     const canvasRef = useRef(null);
@@ -43,63 +38,20 @@ export default function Track() {
         arrowImg.src = arrow;
         
 
-
-        /*const centerX = canvas.width / 2;
-        const centerY = canvas.height / 2;
-
-
         const drawForklift = () => {
-            const forkliftSize = 80;
-            const forkliftX = canvasWidth / 2 + forklift.x * 20; 
-            const forkliftY = canvasHeight / 2 - forklift.y * 20;
-            
-            //context.drawImage(forkliftImg[forklift.direction / 90], forkliftX - forkliftSize / 2, forkliftY - forkliftSize / 2, forkliftSize, forkliftSize);
-           context.save(); 
-            context.translate(forkliftX, forkliftY);
-            
-            switch (forklift.direction) {
-                case 0: 
-                    break;
-                case 90: 
-                    context.rotate(90 * (Math.PI / 180)); 
-                    break;
-                case 180: 
-                    context.rotate(180 * (Math.PI / 180)); 
-                    break;
-                case 270:
-                    context.rotate(270 * (Math.PI / 180)); 
-                    break;
-                default:
-                    break;
-            }
-
-            context.drawImage(forkliftImg, -forkliftSize / 2, -forkliftSize / 2, forkliftSize, forkliftSize);
-
-            context.restore(); 
-        };
-
-        const drawObstacles = () => {
-            const obstacleSize = 30;
-            obstacles.forEach((obstacle) => {
-                const obstacleX = canvasWidth / 2 + parseInt(obstacle.x, 10) * 20; 
-                const obstacleY = canvasHeight / 2 - parseInt(obstacle.y, 10) * 20;
-                context.drawImage(obstacleImg, obstacleX - obstacleSize / 2, obstacleY - obstacleSize / 2, obstacleSize, obstacleSize);
-            });
-        };*/
-        const drawForklift = () => {
-            const forkliftSize = gridSize * 3; // Adjust forklift size based on grid
+            const forkliftSize = gridSize * 3; 
             const forkliftX =
               Math.max(
-                gridSize, // Ensure forklift stays within canvas bounds
+                gridSize, 
                 Math.min(canvasWidth - gridSize - forkliftSize, forklift.x * gridSize)
               ) +
-              gridSize / 2; // Center forklift within grid cell
+              gridSize / 2;
             const forkliftY =
               Math.max(
                 gridSize,
                 Math.min(canvasHeight - gridSize - forkliftSize, canvasHeight - forklift.y * gridSize)
               ) -
-              gridSize / 2; // Center forklift within grid cell
+              gridSize / 2; 
       
             context.save();
             context.translate(forkliftX, forkliftY);
