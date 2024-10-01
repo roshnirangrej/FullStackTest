@@ -7,9 +7,9 @@ export default function Obstacle() {
     const [obstacles, setObstacles] = useState([]);
     const [currentObstacle, setCurrentObstacle] = useState({ x: '', y: '' });
     const [forklift, setForklift] = useState({
-        x: 0, // Initial x position
-        y: 0, // Initial y position
-        direction: 0, // 0 = up, 90 = right, 180 = down, 270 = left
+        x: 0, 
+        y: 0, 
+        direction: 0, 
     });
     
 
@@ -32,25 +32,23 @@ export default function Obstacle() {
 
 
     const handleCommandSubmit = () => {
-        setCommandLog([]); // Clear the previous log
+        setCommandLog([]); 
         const parsedCommands = parseCommands(commands);
 
-        // Simple error checking using a for loop
+       
     for (let i = 0; i < parsedCommands.length; i++) {
         const cmd = parsedCommands[i];
 
-        // Check for valid actions and values
         if (!cmd.action || isNaN(cmd.value) || cmd.value <= 0) {
             console.error("Invalid command input detected. Please check your commands.");
             alert("Invalid command input detected. Please check your commands.");
-            return; // Exit early if there are errors
+            return; 
         }
 
-        // Check if the action is 'L' or 'R' and if the value is valid
         if ((cmd.action === 'L' || cmd.action === 'R') && ![0, 90, 180, 270].includes(cmd.value)) {
             console.error("Invalid degree value for rotation. Must be 0, 90, 180, or 270.");
             alert("Invalid degree value for rotation. Must be 0, 90, 180, or 270.");
-            return; // Exit early if there are errors
+            return; 
         }
     }
        
@@ -85,7 +83,7 @@ export default function Obstacle() {
     };
 
     const executeCommands = (commands) => {
-        let tempX = 0; // Use temp variables to track updates
+        let tempX = 0;
         let tempY = 0;
         let tempDirection = 0;
         const newCommandLog = [];
@@ -152,15 +150,15 @@ export default function Obstacle() {
             if (checkForObstacle(targetX, targetY, obstacles)) {
                 obstacleEncountered = true; 
                 newCommandLog.push(`Error: Obstacle encountered at (${targetX}, ${targetY}).`);
-                return; // Stop processing further commands if an obstacle is hit
+                return; 
             }
         }
 
-        // If no obstacle encountered, update the position and log the movement
+   
         if (!obstacleEncountered) {
             tempX = targetX;
             tempY = targetY;
-            //newCommandLog.push(movementDescription);
+      
         }
 
         });
@@ -168,7 +166,7 @@ export default function Obstacle() {
                 setForklift({ x: tempX, y: tempY, direction: tempDirection });
                 setCommandLog(newCommandLog);
             };
-            // Function to check for obstacles
+          
 const checkForObstacle = (targetX, targetY, obstacles) => {
 
     for (let i = 0; i < obstacles.length; i++) {
@@ -179,14 +177,14 @@ const checkForObstacle = (targetX, targetY, obstacles) => {
 
         if (obstacleX === targetX && obstacleY === targetY) {
             console.log("obstacle.x and obstacle.y : " ,obstacleX,obstacleY);
-            return true; // Obstacle found
+            return true; 
         }
     }
-    return false; // No obstacle found
+    return false; 
 };   
     return (
         <>
-           {/* <Navbar /> */}
+           <Navbar /> 
            <div className='movesConatiner'>
             <h1>Obstacle Detection</h1>
 

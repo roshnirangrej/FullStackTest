@@ -3,34 +3,34 @@ import Navbar from "./Navbar";
 
 export default function Moves() {
     const [commands, setCommands] = useState('');
-    const [commandLog, setCommandLog] = useState([]); // Stores movement descriptions
+    const [commandLog, setCommandLog] = useState([]); 
 
     const resetForkliftState = () => ({
-        x: 0, // Initial x position
-        y: 0, // Initial y position
-        direction: 0, // 0 = North, 90 = East, 180 = South, 270 = West
+        x: 0, 
+        y: 0, 
+        direction: 0, 
     });
 
     const handleCommandSubmit = () => {
-        setCommandLog([]); // Clear the previous log
+        setCommandLog([]); 
         const parsedCommands = parseCommands(commands);
         
 
         for (let i = 0; i < parsedCommands.length; i++) {
             const cmd = parsedCommands[i];
     
-            // Check for valid actions and values
+            
             if (!cmd.action || isNaN(cmd.value) || cmd.value <= 0) {
                 console.error("Invalid command input detected. Please check your commands.");
                 alert("Invalid command input detected. Please check your commands.");
-                return; // Exit early if there are errors
+                return;
             }
     
-            // Check if the action is 'L' or 'R' and if the value is valid
+         
             if ((cmd.action === 'L' || cmd.action === 'R') && ![0, 90, 180, 270].includes(cmd.value)) {
                 console.error("Invalid degree value for rotation. Must be 0, 90, 180, or 270.");
                 alert("Invalid degree value for rotation. Must be 0, 90, 180, or 270.");
-                return; // Exit early if there are errors
+                return;
             }
         }
 
@@ -115,7 +115,6 @@ export default function Moves() {
 });
 
 
-        // Final position and facing direction
         const finalDirectionLabel = getDirectionLabel(forklift.direction);
         newCommandLog.push(`Final position: (${forklift.x}, ${forklift.y})`);
         newCommandLog.push(`Facing: ${finalDirectionLabel}`);
@@ -124,7 +123,6 @@ export default function Moves() {
         setCommandLog(newCommandLog);
     };
 
-// Function to get the label for the direction based on degrees
 const getDirectionLabel = (direction) => {
 if (direction === 0) return "North";
 if (direction === 90) return "East";
@@ -135,7 +133,7 @@ return "Unknown";
 
     return (
         <>
-           {/* <Navbar /> */}
+           <Navbar /> 
             <div className="movesConatiner">
                 <h1>Forklift Movement</h1>
                 <div>

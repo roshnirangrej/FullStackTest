@@ -29,12 +29,12 @@ export default function Lifecycle() {
             console.error('Error fetching forklifts list:', error);
         }
     };
-    // Filter forklifts based on the selected filter option
+    
     const filteredForklifts = forklifts.sort((a,b) => {
         if (sortOrder === "ascending") {
-            return a.age - b.age; // Ascending order: smallest age first
+            return a.age - b.age;
         } else {
-            return b.age - a.age; // Descending order: largest age first
+            return b.age - a.age; 
         }
     });
 
@@ -44,7 +44,7 @@ export default function Lifecycle() {
     };
     return(
         <>
-            {/*<Navbar/>*/}
+            <Navbar/>
             <div className="lifecycle">
                 <h1>Forklift Manager</h1>
                 <span className="supportedfiles">Files Supported JSON, CSV</span>

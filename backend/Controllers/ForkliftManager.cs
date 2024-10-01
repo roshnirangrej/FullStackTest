@@ -108,9 +108,7 @@ namespace backend.Controllers
 
         /*forklift tracking and obstacle detection on canvas
         
-         NOTE: Exercise 2,3,4 through server side implementation and HTML canvas. 
-         
-         For better visualisation use greater movement values like Obstcale: (40,50) Command:  F50R90F40 */
+         NOTE: Exercise 2,4 through server side implementation and HTML canvas.*/
         public class ForkliftRequest
     {
         public string Commands { get; set; }  

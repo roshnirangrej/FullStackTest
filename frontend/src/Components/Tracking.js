@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Navbar from "./Navbar";
 //import North from '../images/NorthF.jpg'; 
 //import South from '../images/South.jpg';
-//import West from '../images/West.jpg';
+import arrow from '../images/arrow.webp';
 import East from '../images/East.jpg';
 import obstacleImage from '../images/obstacle.jpg';
 
@@ -23,7 +23,7 @@ export default function Track() {
 
     const canvasWidth =800;
     const canvasHeight =350;
-
+    const gridSize = 20;
 
     useEffect(() => {
 
@@ -38,10 +38,13 @@ export default function Track() {
 
         const forkliftImg = new Image();
         forkliftImg.src =  East;
+
+        const arrowImg = new Image();
+        arrowImg.src = arrow;
         
 
 
-        const centerX = canvas.width / 2;
+        /*const centerX = canvas.width / 2;
         const centerY = canvas.height / 2;
 
 
@@ -82,7 +85,45 @@ export default function Track() {
                 const obstacleY = canvasHeight / 2 - parseInt(obstacle.y, 10) * 20;
                 context.drawImage(obstacleImg, obstacleX - obstacleSize / 2, obstacleY - obstacleSize / 2, obstacleSize, obstacleSize);
             });
-        };
+        };*/
+        const drawForklift = () => {
+            const forkliftSize = gridSize * 3; // Adjust forklift size based on grid
+            const forkliftX =
+              Math.max(
+                gridSize, // Ensure forklift stays within canvas bounds
+                Math.min(canvasWidth - gridSize - forkliftSize, forklift.x * gridSize)
+              ) +
+              gridSize / 2; // Center forklift within grid cell
+            const forkliftY =
+              Math.max(
+                gridSize,
+                Math.min(canvasHeight - gridSize - forkliftSize, canvasHeight - forklift.y * gridSize)
+              ) -
+              gridSize / 2; // Center forklift within grid cell
+      
+            context.save();
+            context.translate(forkliftX, forkliftY);
+            context.rotate(forklift.direction * (Math.PI / 90));
+            context.drawImage(forkliftImg, -forkliftSize / 2, -forkliftSize / 2, forkliftSize, forkliftSize);
+            context.restore();
+          };
+      
+          const drawObstacles = () => {
+            const obstacleSize = gridSize * 1.5; 
+            obstacles.forEach((obstacle) => {
+              const obstacleX =
+                Math.max(gridSize, Math.min(canvasWidth - obstacleSize, obstacle.x * gridSize)) +
+                gridSize / 2; 
+              const obstacleY =
+                Math.max(gridSize, Math.min(canvasHeight - obstacleSize, canvasHeight - obstacle.y * gridSize)) -
+                gridSize / 2; 
+              context.drawImage(obstacleImg, obstacleX - obstacleSize / 2, obstacleY - obstacleSize / 2, obstacleSize, obstacleSize);
+            });
+          };
+      
+          const clearCanvas = () => {
+            context.clearRect(0, 0, canvasWidth, canvasHeight);
+          };
         
         forkliftImg.onload = () => {
             drawForklift();
@@ -117,7 +158,7 @@ export default function Track() {
         })
         .then(response => response.json())
         .then(data => {
-            console.log("Response from backend:", data); 
+            //console.log("Response from backend:", data); 
             data.positionHistory.forEach((position, index) => {
                 setTimeout(() => {
                     setForklift({
@@ -145,7 +186,7 @@ export default function Track() {
     }
     return(
         <>
-            {/*<Navbar/>*/}
+            <Navbar/>
             <div className='movesConatiner'>
             <div className='top-bar'>
             <h1>Forklift Tracking System</h1>

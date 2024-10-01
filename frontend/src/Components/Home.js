@@ -2,6 +2,8 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRecycle, faRobot, faRoute, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import Navbar from "./Navbar";
+
 
 
 const features = [
@@ -37,8 +39,9 @@ export default function Home() {
     
     return (
         <>
+        <Navbar/>
             <div className="home-container">
-                <h1 className="home-title">Forklift Management System</h1>
+                <h1 className="home-title">Robotic Forklift Control System</h1>
 
                 <div className="features-grid">
                     {features.map((tool) => (
