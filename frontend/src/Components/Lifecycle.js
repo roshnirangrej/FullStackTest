@@ -4,6 +4,7 @@ import Navbar from "./Navbar";
 export default function Lifecycle() {
 
     const [forklifts, setForklifts] = useState([]);
+    const [sortOrder, setSortOrder] = useState("ascending");
 
     const handleFileUpload = async (event) => {
         const file = event.target.files[0];
@@ -15,12 +16,12 @@ export default function Lifecycle() {
         formData.append("file", file);
         //console.log("formdata:", formData);
         try {
-            const response = await fetch('http://localhost:5053/api/forklifts',{
+            const response = await fetch('http://localhost:5093/api/forklifts',{
                 method: "POST",
                 body: formData,
             });
             if (!response.ok) {
-                //throw new Error(HTTP error! Status: ${response.status});
+                throw new Error(`HTTP error! Status: ${response.status}`);
             }
             const data = await response.json();
             setForklifts(data);
@@ -28,10 +29,22 @@ export default function Lifecycle() {
             console.error('Error fetching forklifts list:', error);
         }
     };
+    // Filter forklifts based on the selected filter option
+    const filteredForklifts = forklifts.sort((a,b) => {
+        if (sortOrder === "ascending") {
+            return a.age - b.age; // Ascending order: smallest age first
+        } else {
+            return b.age - a.age; // Descending order: largest age first
+        }
+    });
 
+
+    const handleSortChange = (order) => {
+        setSortOrder(order);
+    };
     return(
         <>
-            <Navbar/>
+            {/*<Navbar/>*/}
             <div className="lifecycle">
                 <h1>Forklift Manager</h1>
                 <span className="supportedfiles">Files Supported JSON, CSV</span>
@@ -43,8 +56,7 @@ export default function Lifecycle() {
                 <div className="selection">
                     <label>
                         Filter:
-                        <select>
-                            <option value="all">All Forklifts</option>
+                        <select onChange={(e) => handleSortChange(e.target.value)}>
                             <option value="recent">Recent Models</option>
                             <option value="outdated">Outdated Models</option>
                         </select>
@@ -62,7 +74,7 @@ export default function Lifecycle() {
                         </tr>
                     </thead>
                     <tbody>
-                        {forklifts.map((forklift, index) => (
+                        {filteredForklifts.map((forklift, index) => (
                             <tr key={index}>
                                 <td>{forklift.name}</td>
                                 <td>{forklift.modelNumber}</td>

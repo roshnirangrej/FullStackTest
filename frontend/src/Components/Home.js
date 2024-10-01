@@ -18,17 +18,18 @@ const features = [
         path: '/Moves' 
     },
     { 
+        name: 'Obstacle Detector', 
+        icon: <FontAwesomeIcon icon={faExclamationTriangle} size="3x" />, 
+        description: 'Detect and prevent collisions with obstacles during forklift navigation for enhanced safety.', 
+        path: '/Obstacles' 
+    },
+    { 
         name: 'Track Forklift', 
         icon: <FontAwesomeIcon icon={faRoute} size="3x" />, 
         description: 'Real-time position tracking of forklifts within the warehouse to ensure route efficiency.', 
         path: '/Tracking' 
-    },
-    { 
-        name: 'Obstacle Detector', 
-        icon: <FontAwesomeIcon icon={faExclamationTriangle} size="3x" />, 
-        description: 'Detect and prevent collisions with obstacles during forklift navigation for enhanced safety.', 
-        path: '/Obstacle' 
     }
+
 ];
 
 export default function Home() {
